@@ -19,10 +19,6 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public SecurityConfig() {
-        super(true);
-    }
-
     @Resource(name = "customUserService")
     private UserServiceImpl userService;
 
@@ -40,25 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").permitAll();
-        http.authorizeRequests().antMatchers("/login").permitAll();
-        /*http
-                .csrf().disable()
-                .anonymous().disable()
-                .authorizeRequests()
-                .antMatchers("/api-docs/**").permitAll();*/
         http
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login").permitAll();
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userService);
+                .anyRequest().authenticated();
     }
 
     @Bean
