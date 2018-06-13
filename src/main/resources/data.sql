@@ -1,0 +1,1 @@
+insert into user values (1, 28, '$2a$10$LkX5zff3/TjB/LbzmZMEr.PEO8bYp0qj.KiljgYzqtCuRLOjbkoi.', 'zoltan.hodgyai');
