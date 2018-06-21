@@ -1,5 +1,7 @@
 package ro.msg.learning.security.service;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,10 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.security.model.User;
 import ro.msg.learning.security.repository.UserRepository;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Service("customUserService")
 @Transactional
@@ -24,20 +22,8 @@ public class UserServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public User save(User user) {
-        return userRepository.save(user);
-    }
-
-    public User findUserById(Integer id) {
-        return userRepository.findUserById(id);
-    }
-
-    public List<User> findUsers() {
-        return userRepository.findAll();
-    }
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findUserByUsername(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
